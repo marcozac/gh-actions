@@ -1,9 +1,11 @@
-module.exports = {
+/** @type {import('@jest/types').InitialOptions} */
+const config = {
+    verbose: true,
     clearMocks: true,
     moduleFileExtensions: ['js', 'ts'],
     testMatch: ['**/*.test.ts'],
     transform: {
         '^.+\\.ts$': 'ts-jest',
     },
-    verbose: true,
 };
+export default config;
