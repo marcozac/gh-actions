@@ -1,0 +1,94 @@
+# OS X
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+.Spotlight-V100
+.Trashes
+._*
+
+# Linux
+*~
+
+# Runtime data
+*.pid
+*.seed
+*.pid.lock
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Archives
+*.7z
+*.rar
+*.tar
+*.tar.*
+*.tgz
+*.zip
+
+# Database
+*.sql
+*.sqlite
+*.sqlite3
+*.db
+
+# Crypto
+*.key
+*.crt
+*.cert
+*.pem
+*.csr
+*.srl
+*.asc
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Backup files
+.bak
+*.bak
+
+# IDEs and editors
+.project
+.classpath
+.c9/
+.settings/
+*.launch
+*.sublime-workspace
+
+# VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# User directories
+.idea/
+
+# Dependencies
+node_modules/
+jspm_packages/
+
+# Build output directories
+lib/
+build/
+dist/
+
+# Cache files
+.npm
+.cache
+.cache-loader
+.eslintcache

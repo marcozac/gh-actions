@@ -1,0 +1,154 @@
+# Set default behavior to automatically normalize line endings.
+* text=auto
+
+# + ---------------------------------------------------- + #
+#                                                          #
+#                       Source code                        #
+#                                                          #
+# + ---------------------------------------------------- + #
+
+# Force batch scripts to always use CRLF line endings.
+*.{cmd,[cC][mM][dD]} text eol=crlf
+*.{bat,[bB][aA][tT]} text eol=crlf
+
+# Force bash scripts to always use LF line endings.
+*.sh text eol=lf
+
+# CSS like
+*.css             text
+*.sass            text
+*.scss            text diff=css
+
+# Configs
+*.cnf             text
+*.conf            text
+*.config          text
+.editorconfig     text
+.env              text
+.gitattributes    text
+.gitconfig        text
+.htaccess         text
+*.toml            text
+*.yaml            text eol=lf
+*.yml             text eol=lf
+browserslist      text
+Makefile          text
+makefile          text
+
+# Docker
+Dockerfile        text
+
+# Documents
+*.markdown        text eol=lf
+*.md              text eol=lf
+*.mdwn            text eol=lf
+*.mdown           text eol=lf
+*.mkd             text eol=lf
+*.mkdn            text eol=lf
+*.mdtxt           text eol=lf
+*.mdtext          text eol=lf
+*.txt             text
+AUTHORS           text
+CHANGELOG         text
+CHANGES           text
+CONTRIBUTING      text
+COPYING           text
+copyright         text
+*COPYRIGHT*       text
+INSTALL           text
+license           text
+LICENSE           text
+NEWS              text
+readme            text
+*README*          text
+TODO              text
+
+# HTML like
+*.htm             text diff=html
+*.html            text diff=html
+*.xhtml           text diff=html
+
+# Javascript and Typescript
+*.js              text eol=lf
+*.jsx             text eol=lf
+*.cjs             text eol=lf
+*.mjs             text eol=lf
+*.ts              text eol=lf
+*.tsx             text eol=lf
+*.cts             text eol=lf
+*.mts             text eol=lf
+*.json            text eol=lf linguist-language=JSON-with-Comments
+
+# Misc
+*.map             text -diff
+
+# Templates
+*.handlebars      text
+*.mustache        text
+*.tmpl            text
+*.tpl             text
+
+# XML
+*.xml             text
+
+# + ---------------------------------------------------- + #
+#                                                          #
+#                         Graphics                         #
+#                                                          #
+# + ---------------------------------------------------- + #
+
+# Documents
+*.pdf             binary
+
+# Fonts
+*.ttf             binary
+*.eot             binary
+*.otf             binary
+*.woff            binary
+*.woff2           binary
+
+# Images
+*.gif             binary
+*.ico             binary
+*.jpg             binary
+*.jpeg            binary
+*.png             binary
+*.psb             binary
+*.psd             binary
+*.svg             binary
+*.tif             binary
+*.tiff            binary
+*.wbmp            binary
+*.webp            binary
+
+# + ---------------------------------------------------- + #
+#                                                          #
+#                         Archives                         #
+#                                                          #
+# + ---------------------------------------------------- + #
+
+*.7z              binary
+*.gz              binary
+*.jar             binary
+*.rar             binary
+*.tar             binary
+*.zip             binary
+
+# + ---------------------------------------------------- + #
+#                                                          #
+#                       Ignore files                       #
+#                                                          #
+# + ---------------------------------------------------- + #
+
+*.*ignore         text
+
+# + ---------------------------------------------------- + #
+#                                                          #
+#                     Generated files                      #
+#                                                          #
+# + ---------------------------------------------------- + #
+
+pnpm-lock.yaml               merge=text
+shrinkwrap.yaml              merge=binary
+npm-shrinkwrap.json          merge=binary
+yarn.lock                    merge=binary
