@@ -1,0 +1,26 @@
+name: read-ci
+description: Reads a json or text file and print its content to output
+author: marcozac
+inputs:
+    ciFile:
+        required: true
+        description: "The file to read"
+
+    type:
+        required: false
+        description: "The file type. May be json or text"
+        default: json
+
+    exclude:
+        required: false
+        description: "The list of properties excluded from outputs"
+        default: ""
+
+    log:
+        required: false
+        description: "The list of properties to log"
+        default: ""
+
+runs:
+    using: "node16"
+    main: "../dist/read-ci.js"
