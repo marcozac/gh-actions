@@ -83,7 +83,7 @@ node_modules/
 jspm_packages/
 
 # Build output directories
-# lib/
+lib/
 # build/
 # dist/
 

@@ -2,6 +2,7 @@
     "name": "@marcozac/gh-actions",
     "version": "0.0.0",
     "description": "A collection of github actions",
+    "type": "module",
     "scripts": {
         "build": "tsc",
         "format": "prettier --write '**/*.ts'",
@@ -35,6 +36,7 @@
         "jest": "^28.0.3",
         "prettier": "2.6.2",
         "ts-jest": "^28.0.0",
+        "tslib": "^2.4.0",
         "typescript": "^4.6.4"
     }
 }
