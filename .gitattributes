@@ -148,7 +148,9 @@ TODO              text
 #                                                          #
 # + ---------------------------------------------------- + #
 
-pnpm-lock.yaml               merge=text
-shrinkwrap.yaml              merge=binary
-npm-shrinkwrap.json          merge=binary
-yarn.lock                    merge=binary
+pnpm-lock.yaml              merge=text
+shrinkwrap.yaml             merge=binary
+npm-shrinkwrap.json         merge=binary
+yarn.lock                   merge=binary
+
+lib/**                     -diff linguist-generated=true
