@@ -14,6 +14,14 @@ const config = [
         },
         plugins: [commonjs(), resolve(), typescript()],
     },
+    {
+        input: 'src/docker-tags.ts',
+        output: {
+            file: 'dist/docker-tags.js',
+            format: 'es',
+        },
+        plugins: [commonjs(), resolve(), typescript()],
+    },
 
     // TESTS
     {
