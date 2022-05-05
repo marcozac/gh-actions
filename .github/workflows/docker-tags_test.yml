@@ -1,4 +1,4 @@
-name: Test `docker-tags` action
+name: docker-tags action test
 
 on:
     push:
@@ -37,7 +37,7 @@ jobs:
         steps:
             - id: gen_tags
               name: Generate Docker tags
-              uses: marcozac/gh-actions-dev/docker-tags@docker-tags
+              uses: marcozac/gh-actions/docker-tags@v1.1.0-beta1
               with:
                 image: ${{ needs.read_ci.outputs.image }}
                 latest: ${{ needs.read_ci.outputs.latest }}
@@ -47,4 +47,4 @@ jobs:
 
             - name: Build command
               run: |
-                echo "docker build ${steps.gen_tags.outputs.tags} ."
+                echo "docker build ${{ steps.gen_tags.outputs.tags }} ."

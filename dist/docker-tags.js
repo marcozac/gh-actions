@@ -1840,7 +1840,7 @@ var coreExports = requireCore();
 try {
     coreExports.setOutput('tags', dockerTags({
         image: coreExports.getInput('image'),
-        order: coreExports.getMultilineInput('order'),
+        order: JSON.parse(coreExports.getInput('order')),
         combine: JSON.parse(coreExports.getInput('combine')),
         output: coreExports.getInput('output'),
         latest: coreExports.getBooleanInput('latest'),
