@@ -25,7 +25,7 @@ jobs:
 
             - id: run
               name: Set outputs from configuration file
-              uses: marcozac/gh-actions/read-ci@read-ci
+              uses: marcozac/gh-actions/read-ci@v1-beta
               with:
                   ciFile: __tests__/read-ci/__read-ci__.json
                   log: |
@@ -46,7 +46,7 @@ jobs:
 
             - id: test
               name: Test ci step outputs
-              uses: marcozac/gh-actions/__tests__/read-ci@read-ci-test
+              uses: marcozac/gh-actions/__tests__/read-ci@v1-beta
               with:
                   os: ${{ needs.ci.outputs.os }}
                   node: ${{ needs.ci.outputs.node }}
