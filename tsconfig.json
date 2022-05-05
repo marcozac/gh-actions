@@ -3,10 +3,7 @@
         "target": "es6",
         "module": "es6",
 
-        // "rootDir": "./src",
-        "outDir": "./lib",
-
-        "noEmitOnError": true,
+        "noEmit": true,
 
         "strict": true,
         "strictNullChecks": true,
@@ -21,5 +18,5 @@
         "importHelpers": true
     },
     "include": ["src"],
-    "exclude": ["node_modules", "**/*.test.ts"]
+    "exclude": ["node_modules"]
 }

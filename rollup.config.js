@@ -14,6 +14,16 @@ const config = [
         },
         plugins: [commonjs(), resolve(), typescript()],
     },
+
+    // TESTS
+    {
+        input: 'src/__tests__/__read-ci__.ts',
+        output: {
+            file: '__tests__/read-ci/__read-ci__.js',
+            format: 'es',
+        },
+        plugins: [commonjs(), resolve(), typescript()],
+    },
 ];
 
 export default config;

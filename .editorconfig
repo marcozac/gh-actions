@@ -6,3 +6,8 @@ indent_style = space
 indent_size = 4
 max_line_length = 120
 insert_final_newline = true
+
+[{*.sh,.husky/pre-commit}]
+binary_next_line = true
+switch_case_indent = true
+space_redirects = true

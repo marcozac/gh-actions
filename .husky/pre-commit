@@ -1,0 +1,7 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Run build adding outputs + lint-staged
+yarn run build \
+    && git add dist __tests__ \
+    && yarn run lint-staged

@@ -1,0 +1,15 @@
+name: read-ci action test
+description: Test `read-ci` outputs
+author: marcozac
+inputs:
+    os:
+        required: true
+        description: The `os` property from action step
+
+    node:
+        required: true
+        description: The `node` property from action step
+
+runs:
+    using: node16
+    main: ./__read-ci__.js

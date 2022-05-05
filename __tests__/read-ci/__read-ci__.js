@@ -1,6 +1,6 @@
 import require$$0$1, { readFileSync } from 'fs';
-import require$$4$1, { basename } from 'path';
 import require$$0 from 'os';
+import require$$4$1 from 'path';
 import require$$2 from 'http';
 import require$$3 from 'https';
 import 'net';
@@ -1837,34 +1837,25 @@ function requireCore () {
 
 var coreExports = requireCore();
 
-try {
-    readCi({
-        ciFile: coreExports.getInput('ciFile', { required: true }),
-        type: coreExports.getInput('type'),
-        exclude: coreExports.getMultilineInput('exclude'),
-        log: coreExports.getMultilineInput('log'),
+const fileContent = JSON.parse(readFileSync('__tests__/read-ci/__read-ci__.json', 'utf8'));
+const errors = [];
+let error;
+// Run test for each key
+Object.keys(fileContent).forEach((key) => test(key));
+if (errors.length > 0) {
+    coreExports.setFailed(`Action failed with errors: ${errors.join('\n, ')}`);
+}
+function test(input) {
+    coreExports.info(`Testing ${input} input from action step...`);
+    const value = JSON.parse(coreExports.getInput(input));
+    value.forEach((v, i) => {
+        if (v !== fileContent[input][i]) {
+            error = `
+                Test \`${input}\` input failed with value: ${v}.
+                Expected value: ${fileContent[input][i]}.
+            `;
+            coreExports.error(error);
+            errors.push(error);
+        }
     });
-}
-catch (error) {
-    coreExports.setFailed(error.message);
-}
-function readCi(input) {
-    // The configuration file content
-    let content;
-    content = readFileSync(input.ciFile, 'utf8');
-    if (input.type === 'json') {
-        content = JSON.parse(content);
-        Object.keys(content).forEach((key) => {
-            if (!input.exclude.includes(key))
-                coreExports.setOutput(key, content[key]);
-            if (input.log.includes(key))
-                coreExports.info(`${key}: ${JSON.stringify(content[key])}`);
-        });
-    }
-    else if (input.type === 'text') {
-        coreExports.setOutput(basename(input.ciFile).replace('.', '_'), content);
-    }
-    else {
-        coreExports.error(`Type ${input.type} not allowed.`);
-    }
 }

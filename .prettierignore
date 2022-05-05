@@ -7,5 +7,8 @@ lib/
 build/
 dist/
 
+# Test outputs
+/__tests__/
+
 # File extensions
 *.yml
