@@ -1,0 +1,10 @@
+{
+    "image": "image-name/example",
+    "latest": true,
+    "main": true,
+    "order": ["php", "ubuntu"],
+    "combine": {
+        "php": ["8.1.5", "8.1", "8"],
+        "ubuntu": ["ubuntu20.04", "ubuntu", "focal"]
+    }
+}
