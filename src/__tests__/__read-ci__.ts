@@ -1,10 +1,15 @@
 import { readFileSync } from 'fs';
+import { parse as jsonParse } from 'jju';
+import { load as yamlParse } from 'js-yaml';
 import * as core from '@actions/core';
-
-const fileContent = JSON.parse(readFileSync('__tests__/read-ci/__read-ci__.json', 'utf8')) as Input;
 
 const errors: string[] = [];
 let error: string;
+
+const fileContent: Input =
+    core.getInput('type') === 'json'
+        ? jsonParse(readFileSync('__tests__/read-ci/__read-ci__.json', 'utf8'))
+        : yamlParse(readFileSync('__tests__/read-ci/__read-ci__.yaml', 'utf8'));
 
 // Run test for each key
 Object.keys(fileContent).forEach((key) => test(key as keyof Input));

@@ -838,11 +838,15 @@ __metadata:
     "@rollup/plugin-node-resolve": ^13.3.0
     "@rollup/plugin-typescript": ^8.3.2
     "@types/jest": ^27.5.0
+    "@types/jju": ^1.4.2
+    "@types/js-yaml": ^4.0.5
     "@types/node": ^17.0.31
     "@types/prettier": ^2.6.0
     eslint: ^8.14.0
     husky: ^7.0.0
     jest: ^28.0.3
+    jju: ^1.4.0
+    js-yaml: ^4.1.0
     lint-staged: ^12.4.1
     prettier: 2.6.2
     rollup: ^2.71.1
@@ -1123,6 +1127,20 @@ __metadata:
     jest-matcher-utils: ^27.0.0
     pretty-format: ^27.0.0
   checksum: ca09ac3a17972e18683c57b681a6866c7a56c67f429810ece00425d948da62f207d271becb5cc759da3630f120596ec3c8e0ceb0eecefbe26daffba168b82879
+  languageName: node
+  linkType: hard
+
+"@types/jju@npm:^1.4.2":
+  version: 1.4.2
+  resolution: "@types/jju@npm:1.4.2"
+  checksum: fccba898d4f9ef8333cd6f21278c0a8e245d57235dd7796fd3a810a10efd4dcb72ae4e60bc4c8677b4268b6e1cb1ddd9816774e71171bb0f03a6284505b215e6
+  languageName: node
+  linkType: hard
+
+"@types/js-yaml@npm:^4.0.5":
+  version: 4.0.5
+  resolution: "@types/js-yaml@npm:4.0.5"
+  checksum: 7dcac8c50fec31643cc9d6444b5503239a861414cdfaa7ae9a38bc22597c4d850c4b8cec3d82d73b3fbca408348ce223b0408d598b32e094470dfffc6d486b4d
   languageName: node
   linkType: hard
 
@@ -4095,7 +4113,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jju@npm:~1.4.0":
+"jju@npm:^1.4.0, jju@npm:~1.4.0":
   version: 1.4.0
   resolution: "jju@npm:1.4.0"
   checksum: 3790481bd2b7827dd6336e6e3dc2dcc6d425679ba7ebde7b679f61dceb4457ea0cda330972494de608571f4973c6dfb5f70fab6f3c5037dbab19ac449a60424f

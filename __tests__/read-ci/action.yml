@@ -2,6 +2,10 @@ name: read-ci action test
 description: Test `read-ci` outputs
 author: marcozac
 inputs:
+    type:
+        required: true
+        description: The `type` property from action step
+
     os:
         required: true
         description: The `os` property from action step

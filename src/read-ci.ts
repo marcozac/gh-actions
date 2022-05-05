@@ -1,5 +1,7 @@
 import { readFileSync } from 'fs';
 import { basename } from 'path';
+import { parse as jsonParse } from 'jju';
+import { load as yamlParse } from 'js-yaml';
 import * as core from '@actions/core';
 
 try {
@@ -16,23 +18,33 @@ try {
 function readCi(input: Input) {
     // The configuration file content
     let content: string | Record<string, unknown>;
-
     content = readFileSync(input.ciFile, 'utf8') as string;
 
-    if (input.type === 'json') {
-        content = JSON.parse(content) as Record<string, unknown>;
+    switch (input.type) {
+        case 'json':
+            content = jsonParse(content) as Record<string, unknown>;
+            setObjOutput(content, input.exclude, input.log);
+            break;
 
-        Object.keys(content).forEach((key) => {
-            if (!input.exclude.includes(key)) core.setOutput(key, (content as Record<string, unknown>)[key]);
+        case 'yaml':
+            content = yamlParse(content) as Record<string, unknown>;
+            setObjOutput(content, input.exclude, input.log);
+            break;
 
-            if (input.log.includes(key))
-                core.info(`${key}: ${JSON.stringify((content as Record<string, unknown>)[key])}`);
-        });
-    } else if (input.type === 'text') {
-        core.setOutput(basename(input.ciFile).replace('.', '_'), content);
-    } else {
-        core.error(`Type ${input.type} not allowed.`);
+        case 'text':
+            core.setOutput(basename(input.ciFile).replace('.', '_'), content);
+            break;
+
+        default:
+            core.error(`Type ${input.type} not allowed.`);
     }
+}
+
+function setObjOutput(content: Record<string, unknown>, exclude: string[], log: string[]) {
+    Object.keys(content).forEach((key) => {
+        if (!exclude.includes(key)) core.setOutput(key, content[key]);
+        if (log.includes(key)) core.info(`${key}: ${JSON.stringify(content[key])}`);
+    });
 }
 
 interface Input {
@@ -48,6 +60,7 @@ interface Input {
      * Defines how the file content should be interpreted.
      *
      * `json`: each key-value is set as an output.
+     * `yaml`: the same as `json`
      * `text`: reads the file content and set its content as value of an output named as `ciFile`. Note that all dots will be replaced with an underscore.
      *
      * @example
@@ -63,7 +76,7 @@ interface Input {
      *
      * As `text` the output will be: `config_json: "{"os": ["20.04", "18.04"],"node": ["16", "14"]}"`
      */
-    type: 'json' | 'text';
+    type: 'json' | 'yaml' | 'text';
 
     /**
      * Excludes output generation for some properties.
@@ -71,7 +84,7 @@ interface Input {
      * @defaultValue []
      *
      * @remarks
-     * For files with type `json`, prevents to set an output for the listed properties.
+     * For files with type `json` or `yaml`, prevents to set an output for the listed properties.
      * Their value may be printed - e.g. for debug purposes - listing them in `log`.
      *
      * @example
@@ -91,7 +104,7 @@ interface Input {
      * @defaultValue []
      *
      * @remarks
-     * For files with type `json`, prints the value of the listed properties.
+     * For files with type `json` or `yaml`, prints the value of the listed properties.
      *
      * @example
      * ```ts
