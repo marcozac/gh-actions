@@ -6,6 +6,7 @@ const config = {
     extends: ['@marcozac/eslint-config'],
     rules: {
         'no-console': 'off',
+        'import/prefer-default-export': 'off',
         '@typescript-eslint/no-use-before-define': ['error', { functions: false }],
     },
 
