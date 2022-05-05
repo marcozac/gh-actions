@@ -2,6 +2,39 @@ import { readFileSync } from 'fs';
 import { basename } from 'path';
 import * as core from '@actions/core';
 
+try {
+    readCi({
+        ciFile: core.getInput('ciFile', { required: true }),
+        type: core.getInput('type') as Input['type'],
+        exclude: core.getMultilineInput('exclude'),
+        log: core.getMultilineInput('log'),
+    });
+} catch (error) {
+    core.setFailed(error.message);
+}
+
+function readCi(input: Input) {
+    // The configuration file content
+    let content: string | Record<string, unknown>;
+
+    content = readFileSync(input.ciFile, 'utf8') as string;
+
+    if (input.type === 'json') {
+        content = JSON.parse(content) as Record<string, unknown>;
+
+        Object.keys(content).forEach((key) => {
+            if (!input.exclude.includes(key)) core.setOutput(key, (content as Record<string, unknown>)[key]);
+
+            if (input.log.includes(key))
+                core.info(`${key}: ${JSON.stringify((content as Record<string, unknown>)[key])}`);
+        });
+    } else if (input.type === 'text') {
+        core.setOutput(basename(input.ciFile).replace('.', '_'), content);
+    } else {
+        core.error(`Type ${input.type} not allowed.`);
+    }
+}
+
 interface Input {
     /** The file to read. */
     ciFile: string;
@@ -70,37 +103,4 @@ interface Input {
      * ```
      */
     log: string[];
-}
-
-try {
-    readCi({
-        ciFile: core.getInput('ciFile', { required: true }),
-        type: core.getInput('type') as Input['type'],
-        exclude: core.getMultilineInput('exclude'),
-        log: core.getMultilineInput('log'),
-    });
-} catch (error) {
-    core.setFailed(error.message);
-}
-
-function readCi(input: Input) {
-    // The configuration file content
-    let content: string | Record<string, unknown>;
-
-    content = readFileSync(input.ciFile, 'utf8') as string;
-
-    if (input.type === 'json') {
-        content = JSON.parse(content) as Record<string, unknown>;
-
-        Object.keys(content).forEach((key) => {
-            if (!input.exclude.includes(key)) core.setOutput(key, (content as Record<string, unknown>)[key]);
-
-            if (input.log.includes(key))
-                core.info(`output - ${key}: ${JSON.stringify((content as Record<string, unknown>)[key])}`);
-        });
-    } else if (input.type === 'text') {
-        core.setOutput(basename(input.ciFile).replace('.', '_'), content);
-    } else {
-        core.error(`Type ${input.type} not allowed.`);
-    }
 }
