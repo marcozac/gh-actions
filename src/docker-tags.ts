@@ -5,7 +5,7 @@ try {
         'tags',
         dockerTags({
             image: core.getInput('image'),
-            order: core.getMultilineInput('order'),
+            order: JSON.parse(core.getInput('order')),
             combine: JSON.parse(core.getInput('combine')),
             output: core.getInput('output') as 'command' | 'list',
             latest: core.getBooleanInput('latest'),
