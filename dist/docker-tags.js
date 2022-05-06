@@ -1842,7 +1842,7 @@ try {
         image: coreExports.getInput('image'),
         order: JSON.parse(coreExports.getInput('order')),
         combine: JSON.parse(coreExports.getInput('combine')),
-        outputType: coreExports.getInput('output'),
+        outputType: coreExports.getInput('outputType'),
         latest: coreExports.getBooleanInput('latest'),
         main: coreExports.getBooleanInput('main'),
     }));
@@ -1859,9 +1859,14 @@ function dockerTags(input) {
         tags = tags.concat(input.combine[input.order[0]]);
     if (input.latest)
         tags = tags.concat('latest');
-    return input.outputType === 'list'
-        ? tags.map((tag) => `${input.image}:${tag}`)
-        : tags.map((tag) => `-t ${input.image}:${tag}`).join(' ');
+    switch (input.outputType) {
+        case 'command':
+            return tags.map((tag) => `-t ${input.image}:${tag}`).join(' ');
+        case 'list':
+            return tags.map((tag) => `${input.image}:${tag}`);
+        default:
+            throw new Error(`Output type '${input.outputType}' not allowed.`);
+    }
 }
 
 export { dockerTags };

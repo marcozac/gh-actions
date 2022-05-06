@@ -2,37 +2,37 @@ name: docker-tags
 description: Generates a list of tags for a Docker image
 author: marcozac
 inputs:
-    image:
-        required: true
-        description: "The Docker image to tag"
+  image:
+    required: true
+    description: "The Docker image to tag"
 
-    order:
-        required: true
-        description: "The `combine` keys order"
+  order:
+    required: true
+    description: "The `combine` keys order"
 
-    combine:
-        required: true
-        description: "An object with the tag combinations"
+  combine:
+    required: true
+    description: "An object with the tag combinations"
 
-    outputType:
-        required: false
-        description: "The output type"
-        default: "command"
+  outputType:
+    required: false
+    description: "The output type"
+    default: "command"
 
-    latest:
-        required: false
-        description: "Add the `latest` tag"
-        default: "false"
+  latest:
+    required: false
+    description: "Add the `latest` tag"
+    default: "false"
 
-    main:
-        required: false
-        description: "Use the first combination as main tags sequence"
-        default: "false"
+  main:
+    required: false
+    description: "Use the first combination as main tags sequence"
+    default: "false"
 
 outputs:
   tags:
     description: "The list of generated tags"
 
 runs:
-    using: "node16"
-    main: "../dist/docker-tags.js"
+  using: "node16"
+  main: "../dist/docker-tags.js"

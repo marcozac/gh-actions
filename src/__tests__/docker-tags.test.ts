@@ -1,13 +1,13 @@
 import { dockerTags } from '../docker-tags';
 
-it('combine two lists', () => {
+it('combine two lists + main', () => {
     expect(
         dockerTags({
             image: 'image-name/example',
             latest: false,
             main: true,
             order: ['php', 'ubuntu'],
-            // outputType: 'command',
+            outputType: 'command',
             combine: {
                 php: ['8.1.5', '8.1', '8'],
                 ubuntu: ['ubuntu20.04', 'ubuntu', 'focal'],
@@ -18,7 +18,7 @@ it('combine two lists', () => {
     );
 });
 
-it('combine two lists + main + latest tags', () => {
+it('combine two lists + latest tags', () => {
     expect(
         dockerTags({
             image: 'image-name/example',
@@ -43,4 +43,19 @@ it('combine two lists + main + latest tags', () => {
         'image-name/example:8-focal',
         'image-name/example:latest',
     ]);
+});
+
+it('error: undefined outputType', () => {
+    expect(() =>
+        dockerTags({
+            image: 'image-name/example',
+            latest: false,
+            main: false,
+            order: ['php', 'ubuntu'],
+            combine: {
+                php: ['8.1.5', '8.1', '8'],
+                ubuntu: ['ubuntu20.04', 'ubuntu', 'focal'],
+            },
+        }),
+    ).toThrow();
 });

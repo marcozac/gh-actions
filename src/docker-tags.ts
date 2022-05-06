@@ -7,7 +7,7 @@ try {
             image: core.getInput('image'),
             order: JSON.parse(core.getInput('order')),
             combine: JSON.parse(core.getInput('combine')),
-            outputType: core.getInput('output') as 'command' | 'list',
+            outputType: core.getInput('outputType') as 'command' | 'list',
             latest: core.getBooleanInput('latest'),
             main: core.getBooleanInput('main'),
         }),
@@ -26,9 +26,16 @@ export function dockerTags(input: Input) {
     if (input.main) tags = tags.concat(input.combine[input.order[0]]);
     if (input.latest) tags = tags.concat('latest');
 
-    return input.outputType === 'list'
-        ? tags.map((tag) => `${input.image}:${tag}`)
-        : tags.map((tag) => `-t ${input.image}:${tag}`).join(' ');
+    switch (input.outputType) {
+        case 'command':
+            return tags.map((tag) => `-t ${input.image}:${tag}`).join(' ');
+
+        case 'list':
+            return tags.map((tag) => `${input.image}:${tag}`);
+
+        default:
+            throw new Error(`Output type '${input.outputType}' not allowed.`);
+    }
 }
 
 export interface Input {
