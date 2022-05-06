@@ -7,7 +7,7 @@ it('combine two lists', () => {
             latest: false,
             main: true,
             order: ['php', 'ubuntu'],
-            // output: 'command',
+            // outputType: 'command',
             combine: {
                 php: ['8.1.5', '8.1', '8'],
                 ubuntu: ['ubuntu20.04', 'ubuntu', 'focal'],
@@ -25,7 +25,7 @@ it('combine two lists + main + latest tags', () => {
             latest: true,
             main: false,
             order: ['php', 'ubuntu'],
-            output: 'list',
+            outputType: 'list',
             combine: {
                 php: ['8.1.5', '8.1', '8'],
                 ubuntu: ['ubuntu20.04', 'ubuntu', 'focal'],

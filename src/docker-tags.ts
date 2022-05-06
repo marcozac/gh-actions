@@ -7,7 +7,7 @@ try {
             image: core.getInput('image'),
             order: JSON.parse(core.getInput('order')),
             combine: JSON.parse(core.getInput('combine')),
-            output: core.getInput('output') as 'command' | 'list',
+            outputType: core.getInput('output') as 'command' | 'list',
             latest: core.getBooleanInput('latest'),
             main: core.getBooleanInput('main'),
         }),
@@ -26,7 +26,7 @@ export function dockerTags(input: Input) {
     if (input.main) tags = tags.concat(input.combine[input.order[0]]);
     if (input.latest) tags = tags.concat('latest');
 
-    return input.output === 'list'
+    return input.outputType === 'list'
         ? tags.map((tag) => `${input.image}:${tag}`)
         : tags.map((tag) => `-t ${input.image}:${tag}`).join(' ');
 }
@@ -66,7 +66,7 @@ export interface Input {
      * @remarks
      * Use `command` to generate a string like `-t <image>:<tag> -t ...` ready to use in `docker build` commands. Use `list` to generate an array-like output.
      */
-    output?: 'command' | 'list';
+    outputType?: 'command' | 'list';
 
     /**
      * Include the `latest` tag.
