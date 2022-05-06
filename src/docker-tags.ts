@@ -7,7 +7,7 @@ try {
             image: core.getInput('image'),
             order: JSON.parse(core.getInput('order')),
             combine: JSON.parse(core.getInput('combine')),
-            outputType: core.getInput('output') as 'command' | 'list',
+            outputType: core.getInput('outputType') as 'command' | 'list',
             latest: core.getBooleanInput('latest'),
             main: core.getBooleanInput('main'),
         }),

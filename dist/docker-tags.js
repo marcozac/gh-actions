@@ -1842,7 +1842,7 @@ try {
         image: coreExports.getInput('image'),
         order: JSON.parse(coreExports.getInput('order')),
         combine: JSON.parse(coreExports.getInput('combine')),
-        outputType: coreExports.getInput('output'),
+        outputType: coreExports.getInput('outputType'),
         latest: coreExports.getBooleanInput('latest'),
         main: coreExports.getBooleanInput('main'),
     }));
