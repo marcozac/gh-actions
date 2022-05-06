@@ -3,22 +3,14 @@ name: Test `read-ci` action
 on:
     push:
         paths:
-            - src/read-ci.ts
-            - src/__tests__/__read-ci__.ts
-            - __tests__/read-ci/__read-ci__.json
-            - __tests__/read-ci/__read-ci__.yaml
+            - '**/read-ci.*'
+            - '**/read-ci/**/*'
             - .github/workflows/read-ci_test.yml
-        tags-ignore:
-            - '**'
     pull_request:
         paths:
-            - src/read-ci.ts
-            - src/__tests__/__read-ci__.ts
-            - __tests__/read-ci/__read-ci__.json
-            - __tests__/read-ci/__read-ci__.yaml
+            - '**/read-ci.*'
+            - '**/read-ci/**/*'
             - .github/workflows/read-ci_test.yml
-        tags-ignore:
-            - '**'
 jobs:
     ci_json:
         runs-on: ubuntu-latest

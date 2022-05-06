@@ -1,20 +1,16 @@
-name: docker-tags action test
+name: Test `docker-tags` action
 
 on:
     push:
         paths:
-            - src/docker-tags.ts
-            - __tests__/docker-tags/__docker-tags__.json
+            - "**/docker-tags.*"
+            - "**/docker-tags/**/*"
             - .github/workflows/docker-tags_test.yml
-        tags-ignore:
-            - '**'
     pull_request:
         paths:
-            - src/docker-tags.ts
-            - __tests__/docker-tags/__docker-tags__.json
+            - "**/docker-tags.*"
+            - "**/docker-tags/**/*"
             - .github/workflows/docker-tags_test.yml
-        tags-ignore:
-            - '**'
 
 jobs:
     read_ci:
@@ -41,14 +37,14 @@ jobs:
         steps:
             - id: gen_tags
               name: Generate Docker tags
-              uses: marcozac/gh-actions/docker-tags@v1.1.0-beta1
+              uses: marcozac/gh-actions/docker-tags@v1.1.0-beta2
               with:
-                image: ${{ needs.read_ci.outputs.image }}
-                latest: ${{ needs.read_ci.outputs.latest }}
-                main: ${{ needs.read_ci.outputs.main }}
-                order: ${{ needs.read_ci.outputs.order }}
-                combine: ${{ needs.read_ci.outputs.combine }}
+                  image: ${{ needs.read_ci.outputs.image }}
+                  latest: ${{ needs.read_ci.outputs.latest }}
+                  main: ${{ needs.read_ci.outputs.main }}
+                  order: ${{ needs.read_ci.outputs.order }}
+                  combine: ${{ needs.read_ci.outputs.combine }}
 
             - name: Build command
               run: |
-                echo "docker build ${{ steps.gen_tags.outputs.tags }} ."
+                  echo "docker build ${{ steps.gen_tags.outputs.tags }} ."

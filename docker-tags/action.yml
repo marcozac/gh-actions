@@ -14,7 +14,7 @@ inputs:
         required: true
         description: "An object with the tag combinations"
 
-    output:
+    outputType:
         required: false
         description: "The output type"
         default: "command"
