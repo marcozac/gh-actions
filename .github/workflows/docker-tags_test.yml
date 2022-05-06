@@ -6,11 +6,15 @@ on:
             - src/docker-tags.ts
             - __tests__/docker-tags/__docker-tags__.json
             - .github/workflows/docker-tags_test.yml
+        tags-ignore:
+            - '**'
     pull_request:
         paths:
             - src/docker-tags.ts
             - __tests__/docker-tags/__docker-tags__.json
             - .github/workflows/docker-tags_test.yml
+        tags-ignore:
+            - '**'
 
 jobs:
     read_ci:

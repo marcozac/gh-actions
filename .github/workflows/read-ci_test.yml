@@ -8,6 +8,8 @@ on:
             - __tests__/read-ci/__read-ci__.json
             - __tests__/read-ci/__read-ci__.yaml
             - .github/workflows/read-ci_test.yml
+        tags-ignore:
+            - '**'
     pull_request:
         paths:
             - src/read-ci.ts
@@ -15,6 +17,8 @@ on:
             - __tests__/read-ci/__read-ci__.json
             - __tests__/read-ci/__read-ci__.yaml
             - .github/workflows/read-ci_test.yml
+        tags-ignore:
+            - '**'
 jobs:
     ci_json:
         runs-on: ubuntu-latest
