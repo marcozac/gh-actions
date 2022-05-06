@@ -23,7 +23,7 @@ jobs:
 
       - id: run
         name: Set outputs from configuration file
-        uses: marcozac/gh-actions/read-ci@v1
+        uses: ./read-ci
         with:
           ciFile: __tests__/read-ci/__read-ci__.json
           log: |
@@ -41,7 +41,7 @@ jobs:
 
       - id: run
         name: Set outputs from configuration file
-        uses: marcozac/gh-actions/read-ci@v1
+        uses: ./read-ci
         with:
           ciFile: __tests__/read-ci/__read-ci__.yaml
           type: yaml
@@ -63,7 +63,7 @@ jobs:
 
       - id: test
         name: Test ci step outputs
-        uses: marcozac/gh-actions/__tests__/read-ci@v1
+        uses: ./__tests__/read-ci
         with:
           type: json
           os: ${{ needs.ci_json.outputs.os }}
@@ -83,7 +83,7 @@ jobs:
 
       - id: test
         name: Test ci step outputs
-        uses: marcozac/gh-actions/__tests__/read-ci@v1
+        uses: ./__tests__/read-ci
         with:
           type: yaml
           os: ${{ needs.ci_yaml.outputs.os }}
