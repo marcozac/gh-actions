@@ -37,7 +37,7 @@ jobs:
         steps:
             - id: gen_tags
               name: Generate Docker tags
-              uses: marcozac/gh-actions/docker-tags@v1.1.0-beta2
+              uses: marcozac/gh-actions/docker-tags@v1
               with:
                   image: ${{ needs.read_ci.outputs.image }}
                   latest: ${{ needs.read_ci.outputs.latest }}
