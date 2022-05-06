@@ -1,8 +1,8 @@
 # read-ci action test
 os:
-    - ubuntu-20.04
-    - ubuntu-18.04
+  - ubuntu-20.04
+  - ubuntu-18.04
 
 node:
-    - 16
-    - 14
+  - 16
+  - 14

@@ -1,108 +1,108 @@
 name: Test `read-ci` action
 
 on:
-    push:
-        paths:
-            - '**/read-ci.*'
-            - '**/read-ci/**/*'
-            - .github/workflows/read-ci_test.yml
-    pull_request:
-        paths:
-            - '**/read-ci.*'
-            - '**/read-ci/**/*'
-            - .github/workflows/read-ci_test.yml
+  push:
+    paths:
+      - "**/read-ci.*"
+      - "**/read-ci/**/*"
+      - .github/workflows/read-ci_test.yml
+  pull_request:
+    paths:
+      - "**/read-ci.*"
+      - "**/read-ci/**/*"
+      - .github/workflows/read-ci_test.yml
 jobs:
-    ci_json:
-        runs-on: ubuntu-latest
-        outputs:
-            os: ${{ steps.run.outputs.os }}
-            node: ${{ steps.run.outputs.node }}
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v3
+  ci_json:
+    runs-on: ubuntu-latest
+    outputs:
+      os: ${{ steps.run.outputs.os }}
+      node: ${{ steps.run.outputs.node }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-            - id: run
-              name: Set outputs from configuration file
-              uses: marcozac/gh-actions/read-ci@v1
-              with:
-                  ciFile: __tests__/read-ci/__read-ci__.json
-                  log: |
-                      os
-                      node
+      - id: run
+        name: Set outputs from configuration file
+        uses: marcozac/gh-actions/read-ci@v1
+        with:
+          ciFile: __tests__/read-ci/__read-ci__.json
+          log: |
+            os
+            node
 
-    ci_yaml:
-        runs-on: ubuntu-latest
-        outputs:
-            os: ${{ steps.run.outputs.os }}
-            node: ${{ steps.run.outputs.node }}
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v3
+  ci_yaml:
+    runs-on: ubuntu-latest
+    outputs:
+      os: ${{ steps.run.outputs.os }}
+      node: ${{ steps.run.outputs.node }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-            - id: run
-              name: Set outputs from configuration file
-              uses: marcozac/gh-actions/read-ci@v1
-              with:
-                  ciFile: __tests__/read-ci/__read-ci__.yaml
-                  type: yaml
-                  log: |
-                      os
-                      node
+      - id: run
+        name: Set outputs from configuration file
+        uses: marcozac/gh-actions/read-ci@v1
+        with:
+          ciFile: __tests__/read-ci/__read-ci__.yaml
+          type: yaml
+          log: |
+            os
+            node
 
-    test_output_json:
-        needs: ci_json
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v3
+  test_output_json:
+    needs: ci_json
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-            - id: print-outputs
-              run: |
-                  echo ${{ needs.ci_json.outputs.os }}
-                  echo ${{ needs.ci_json.outputs.node }}
+      - id: print-outputs
+        run: |
+          echo ${{ needs.ci_json.outputs.os }}
+          echo ${{ needs.ci_json.outputs.node }}
 
-            - id: test
-              name: Test ci step outputs
-              uses: marcozac/gh-actions/__tests__/read-ci@v1
-              with:
-                  type: json
-                  os: ${{ needs.ci_json.outputs.os }}
-                  node: ${{ needs.ci_json.outputs.node }}
+      - id: test
+        name: Test ci step outputs
+        uses: marcozac/gh-actions/__tests__/read-ci@v1
+        with:
+          type: json
+          os: ${{ needs.ci_json.outputs.os }}
+          node: ${{ needs.ci_json.outputs.node }}
 
-    test_output_yaml:
-        needs: ci_yaml
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v3
+  test_output_yaml:
+    needs: ci_yaml
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-            - id: print-outputs
-              run: |
-                  echo ${{ needs.ci_yaml.outputs.os }}
-                  echo ${{ needs.ci_yaml.outputs.node }}
+      - id: print-outputs
+        run: |
+          echo ${{ needs.ci_yaml.outputs.os }}
+          echo ${{ needs.ci_yaml.outputs.node }}
 
-            - id: test
-              name: Test ci step outputs
-              uses: marcozac/gh-actions/__tests__/read-ci@v1
-              with:
-                  type: yaml
-                  os: ${{ needs.ci_yaml.outputs.os }}
-                  node: ${{ needs.ci_yaml.outputs.node }}
+      - id: test
+        name: Test ci step outputs
+        uses: marcozac/gh-actions/__tests__/read-ci@v1
+        with:
+          type: yaml
+          os: ${{ needs.ci_yaml.outputs.os }}
+          node: ${{ needs.ci_yaml.outputs.node }}
 
-    test_json_matrix:
-        needs: ci_json
-        strategy:
-            matrix:
-                os: ${{ fromJson(needs.ci_json.outputs.os) }}
-        runs-on: ${{ matrix.os }}
-        steps:
-            - run: echo "Test successful."
+  test_json_matrix:
+    needs: ci_json
+    strategy:
+      matrix:
+        os: ${{ fromJson(needs.ci_json.outputs.os) }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - run: echo "Test successful."
 
-    test_yaml_matrix:
-        needs: ci_yaml
-        strategy:
-            matrix:
-                os: ${{ fromJson(needs.ci_yaml.outputs.os) }}
-        runs-on: ${{ matrix.os }}
-        steps:
-            - run: echo "Test successful."
+  test_yaml_matrix:
+    needs: ci_yaml
+    strategy:
+      matrix:
+        os: ${{ fromJson(needs.ci_yaml.outputs.os) }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - run: echo "Test successful."

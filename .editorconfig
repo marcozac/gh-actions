@@ -12,5 +12,5 @@ binary_next_line = true
 switch_case_indent = true
 space_redirects = true
 
-[*.md]
+[{*.md,*.yml,*.yaml}]
 indent_size = 2

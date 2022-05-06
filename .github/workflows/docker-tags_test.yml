@@ -1,50 +1,50 @@
 name: Test `docker-tags` action
 
 on:
-    push:
-        paths:
-            - "**/docker-tags.*"
-            - "**/docker-tags/**/*"
-            - .github/workflows/docker-tags_test.yml
-    pull_request:
-        paths:
-            - "**/docker-tags.*"
-            - "**/docker-tags/**/*"
-            - .github/workflows/docker-tags_test.yml
+  push:
+    paths:
+      - "**/docker-tags.*"
+      - "**/docker-tags/**/*"
+      - .github/workflows/docker-tags_test.yml
+  pull_request:
+    paths:
+      - "**/docker-tags.*"
+      - "**/docker-tags/**/*"
+      - .github/workflows/docker-tags_test.yml
 
 jobs:
-    read_ci:
-        runs-on: ubuntu-latest
-        outputs:
-            image: ${{ steps.ci.outputs.image }}
-            latest: ${{ steps.ci.outputs.latest }}
-            main: ${{ steps.ci.outputs.main }}
-            order: ${{ steps.ci.outputs.order }}
-            combine: ${{ steps.ci.outputs.combine }}
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v3
+  read_ci:
+    runs-on: ubuntu-latest
+    outputs:
+      image: ${{ steps.ci.outputs.image }}
+      latest: ${{ steps.ci.outputs.latest }}
+      main: ${{ steps.ci.outputs.main }}
+      order: ${{ steps.ci.outputs.order }}
+      combine: ${{ steps.ci.outputs.combine }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-            - id: ci
-              name: Set outputs from configuration file
-              uses: marcozac/gh-actions/read-ci@v1
-              with:
-                  ciFile: __tests__/docker-tags/__docker-tags__.json
+      - id: ci
+        name: Set outputs from configuration file
+        uses: marcozac/gh-actions/read-ci@v1
+        with:
+          ciFile: __tests__/docker-tags/__docker-tags__.json
 
-    test:
-        runs-on: ubuntu-latest
-        needs: read_ci
-        steps:
-            - id: gen_tags
-              name: Generate Docker tags
-              uses: marcozac/gh-actions/docker-tags@v1
-              with:
-                  image: ${{ needs.read_ci.outputs.image }}
-                  latest: ${{ needs.read_ci.outputs.latest }}
-                  main: ${{ needs.read_ci.outputs.main }}
-                  order: ${{ needs.read_ci.outputs.order }}
-                  combine: ${{ needs.read_ci.outputs.combine }}
+  test:
+    runs-on: ubuntu-latest
+    needs: read_ci
+    steps:
+      - id: gen_tags
+        name: Generate Docker tags
+        uses: marcozac/gh-actions/docker-tags@v1
+        with:
+          image: ${{ needs.read_ci.outputs.image }}
+          latest: ${{ needs.read_ci.outputs.latest }}
+          main: ${{ needs.read_ci.outputs.main }}
+          order: ${{ needs.read_ci.outputs.order }}
+          combine: ${{ needs.read_ci.outputs.combine }}
 
-            - name: Build command
-              run: |
-                  echo "docker build ${{ steps.gen_tags.outputs.tags }} ."
+      - name: Build command
+        run: |
+          echo "docker build ${{ steps.gen_tags.outputs.tags }} ."

@@ -2,18 +2,18 @@ name: read-ci action test
 description: Test `read-ci` outputs
 author: marcozac
 inputs:
-    type:
-        required: true
-        description: The `type` property from action step
+  type:
+    required: true
+    description: The `type` property from action step
 
-    os:
-        required: true
-        description: The `os` property from action step
+  os:
+    required: true
+    description: The `os` property from action step
 
-    node:
-        required: true
-        description: The `node` property from action step
+  node:
+    required: true
+    description: The `node` property from action step
 
 runs:
-    using: node16
-    main: ./__read-ci__.js
+  using: node16
+  main: ./__read-ci__.js
