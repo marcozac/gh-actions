@@ -12,3 +12,7 @@ dist/
 
 # File extensions
 *.yml
+
+# Dot files to not ignore
+!/.*.js
+!/.*.cjs
