@@ -139,3 +139,61 @@ jobs:
 | Name | Type        | Description                                                                |
 | ---- | ----------- | -------------------------------------------------------------------------- |
 | tags | String/List | A `-t <image>:tag0 -t <image>:tag1` string or a list of the generated tags |
+
+## `gen-matrix`
+
+This action generates matrix items from a `key/array` object.
+
+### Usage
+
+```yaml
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    outputs:
+      os: ${{ steps.gen_matrix.outputs.os }}
+      php: ${{ steps.gen_matrix.outputs.php }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - id: read_ci
+        name: Set outputs from configuration file
+        uses: marcozac/gh-actions/read-ci@v1
+        with:
+          ciFile: __tests__/gen-matrix/__gen-matrix__.json
+
+      # Generate the matrix to use in `test` job
+      - id: gen_matrix
+        name: Generate matrix
+        uses: marcozac/gh-actions/gen-matrix@v1
+        with:
+          # The object to use to generate the matrix
+          # Each value must be an array of objects with the `name` key set to a `string` value and all the others as the arrays used to generate the combinations.
+          # For example, using as input this object:
+          # {
+          #   "os": [{ "name": "ubuntu", "version": ["22.04","20.04"]}, { "name": "alpine", "version": ["3.15.4"]}],
+          #   "php": [{ "name": "php", "version": ["8.1.5","8.0.18"]}]
+          # }
+          # The generated matrix will be:
+          # {
+          #   "os": [{"name": "ubuntu", "version": "22.04"}, {"name": "ubuntu", "version": "20.04"}, {"name": "alpine", "version": "3.15.4"}],
+          #   "php": [{"name": "php", "version": "8.1.5"}, {"name": "php", "version": "8.0.18"}]
+          # }
+          # In this example we're using the value of `matrixObject` we read from `__tests__/gen-matrix/__gen-matrix__.json` file.
+          object: ${{ steps.read_ci.outputs.matrixObject }}
+
+  test:
+    runs-on: ubuntu-latest
+    needs: ci
+    strategy:
+      # Use the outputs from `ci` step
+      matrix:
+        os: ${{ fromJSON(needs.ci.outputs.os) }}
+        php: ${{ fromJSON(needs.ci.outputs.php) }}
+    steps:
+      - name: Run test command
+        run: |
+          echo "os: ${{ toJSON(matrix.os) }}"
+          echo "php: ${{ toJSON(matrix.php) }}"
+```

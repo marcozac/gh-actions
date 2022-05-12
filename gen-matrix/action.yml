@@ -1,0 +1,11 @@
+name: gen-matrix
+description: Generates a matrix from a `key/array` object
+author: marcozac
+inputs:
+  object:
+    required: true
+    description: "The object to convert"
+
+runs:
+  using: "node16"
+  main: "../dist/gen-matrix.js"

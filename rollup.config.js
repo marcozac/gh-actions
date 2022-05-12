@@ -22,6 +22,14 @@ const config = [
         },
         plugins: [commonjs(), resolve(), typescript()],
     },
+    {
+        input: 'src/gen-matrix.ts',
+        output: {
+            file: 'dist/gen-matrix.js',
+            format: 'es',
+        },
+        plugins: [commonjs(), resolve(), typescript()],
+    },
 
     // TESTS
     {

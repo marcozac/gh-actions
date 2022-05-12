@@ -1,0 +1,48 @@
+name: Test `gen-matrix` action
+
+on:
+  push:
+    paths:
+      - "**/gen-matrix.*"
+      - "**/gen-matrix/**/*"
+      - .github/workflows/gen-matrix_test.yml
+  pull_request:
+    paths:
+      - "**/gen-matrix.*"
+      - "**/gen-matrix/**/*"
+      - .github/workflows/gen-matrix_test.yml
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    outputs:
+      os: ${{ steps.gen_matrix.outputs.os }}
+      php: ${{ steps.gen_matrix.outputs.php }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - id: read_ci
+        name: Set outputs from configuration file
+        uses: ./read-ci
+        with:
+          ciFile: __tests__/gen-matrix/__gen-matrix__.json
+
+      - id: gen_matrix
+        name: Generate matrix
+        uses: ./gen-matrix
+        with:
+          object: ${{ steps.read_ci.outputs.matrixObject }}
+
+  test:
+    runs-on: ubuntu-latest
+    needs: ci
+    strategy:
+      matrix:
+        os: ${{ fromJSON(needs.ci.outputs.os) }}
+        php: ${{ fromJSON(needs.ci.outputs.php) }}
+    steps:
+      - name: Run test command
+        run: |
+          echo "os: ${{ toJSON(matrix.os) }}"
+          echo "php: ${{ toJSON(matrix.php) }}"
