@@ -1,0 +1,21 @@
+{
+    "matrixObject": {
+        "os": [
+            {
+                "name": "ubuntu",
+                "version": ["22.04", "20.04"]
+            },
+            {
+                "name": "alpine",
+                "version": ["3.15.4"]
+            }
+        ],
+
+        "php": [
+            {
+                "name": "php",
+                "version": ["8.1.5", "8.0.18"]
+            }
+        ]
+    }
+}

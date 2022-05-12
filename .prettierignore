@@ -8,7 +8,7 @@ build/
 dist/
 
 # Test outputs
-/__tests__/
+/__tests__/**/*.js
 
 # File extensions
 *.yml
