@@ -22,10 +22,8 @@ export const objectToMatrix = (obj: Record<string, unknown[]>) => {
     entriesArr.forEach((entry) => {
         outArr =
             outArr.length === 0
-                ? entry
-                : (outArr = outArr.flatMap((outVal) =>
-                      entry.map((entryVal) => (Array.isArray(outVal[0]) ? [...outVal, entryVal] : [outVal, entryVal])),
-                  ));
+                ? entry.map((item) => [item])
+                : (outArr = outArr.flatMap((outVal) => entry.map((entryVal) => [...outVal, entryVal])));
     });
 
     return outArr.map((entries) => Object.fromEntries(entries));
